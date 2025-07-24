@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const uploadRoute = require('./routes/uploadRoute'); 
 
 dotenv.config();
 connectDB(); // connect to MongoDB
@@ -13,6 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // for JSON body
 app.use(express.urlencoded({ extended: true })); // for forms
+
+// Add this route after any middleware
+app.use('/api', uploadRoute); 
 
 // Test route
 app.get('/', (req, res) => {
